@@ -1,12 +1,12 @@
 import numpy as np
 import torch
 from data_loader import SequenceClassificationDataset,collate_fn_test
-from transformers import AutoModelForSequenceClassification,AutoTokenizer
+from transformers import AutoConfig, AutoModelForSequenceClassification,AutoTokenizer
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 
-def predict_all(text='./data/test.txt',model_path,pretrained_path='../pretrained_model/bert-base-chinese'):
+def predict_list(text='./data/test.txt',model_path='model.pth',pretrained_path='bert-base-chinese'):
     #可以文件，也可以list形式
 
     device =torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -17,8 +17,10 @@ def predict_all(text='./data/test.txt',model_path,pretrained_path='../pretrained
     test_dataloader=DataLoader(test_dataset,batch_size=32,shuffle=False,collate_fn=lambda x:collate_fn_test(x,tokenizer))
 
     #加载训练好的模型进行预测
-    model=AutoModelForSequenceClassification.from_config(pretrained_path,num_labels=10)
+    config=AutoConfig.from_pretrained(pretrained_path,num_labels=10)
+    model=AutoModelForSequenceClassification.from_config(config)
     model.load_state_dict(torch.load("model.pth"))
+    model=model.to(device)
 
     result=predict(model,test_dataloader,device,class_list=None)
     print(result)
