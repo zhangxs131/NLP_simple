@@ -59,8 +59,8 @@ def train(config, model, train_dataloader, dev_dataloader, device):
                     dev_best_loss = dev_loss
                     torch.save(model.state_dict(), config.save_path)
 
-                msg = 'Iter: {0:>6},  Train Loss: {1:>5.2},  Train Acc: {2:>6.2%},  Val Loss: {3:>5.2},  Val Acc: {4:>6.2%}'
-                print(msg.format(total_batch, loss.item(), train_acc, dev_loss, dev_acc))
+                msg = 'Epoch: {0:>6} Iter: {1:>6},  Train Loss: {2:>5.2},  Train Acc: {3:>6.2%},  Val Loss: {4:>5.2},  Val Acc: {5:>6.2%}'
+                print(msg.format(epoch+1,total_batch, loss.item(), train_acc, dev_loss, dev_acc))
                 model.train()
             total_batch += 1
 
