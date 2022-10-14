@@ -16,7 +16,7 @@ def set_args():
     parser.add_argument('--dev_path', type=str, default='./data/dev.txt')
     parser.add_argument('--learning_rate', type=float, default=0.00003,help='random seed')
     parser.add_argument('--num_epochs', type=int, default=6,help='random seed')
-    parser.add_argument('--save_path', type=str, default='./output/model.pth',help='random seed')
+    parser.add_argument('--save_path', type=str, default='./model.pth',help='random seed')
     parser.add_argument('--warm_up_ratio', type=float, default=0.03,help='warmup rate')
 
     args = parser.parse_args()
