@@ -11,7 +11,7 @@ def set_args():
 
     parser = argparse.ArgumentParser(description='Chinese Text Classification')
     parser.add_argument('--seed', type=int, default=2022,help='random seed')
-    parser.add_argument('--pretrained_path', type=str, default='./pretrained_model/bert-base-chinese',help='choose a model_path')
+    parser.add_argument('--pretrained_path', type=str, default='bert-base-chinese',help='choose a model_path')
     parser.add_argument('--train_path', type=str, default='./data/train.txt')
     parser.add_argument('--dev_path', type=str, default='./data/dev.txt')
     parser.add_argument('--learning_rate', type=float, default=0.00003,help='random seed')
