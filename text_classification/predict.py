@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 
-def predict_list(text='./data/test.txt',model_path='model.pth',pretrained_path='bert-base-chinese'):
+def predict_list(text='./data/test.txt',model_path='model.pth',pretrained_path='bert-base-chinese',class_list=None):
     #可以文件，也可以list形式
 
     device =torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -22,7 +22,7 @@ def predict_list(text='./data/test.txt',model_path='model.pth',pretrained_path='
     model.load_state_dict(torch.load("model.pth"))
     model=model.to(device)
 
-    result=predict(model,test_dataloader,device,class_list=None)
+    result=predict(model,test_dataloader,device,class_list=class_list)
     print(result)
 
     #save to txt
@@ -55,4 +55,6 @@ def predict(model, data_loader,device='cpu',class_list=None):
 
 
 if __name__=='__main__':
-    predict_list()
+    input_text=['今天基金又涨了，开心。']
+    class_list=['finance','realty','stocks','education','science','society','politics','sports','game','entertainment']
+    predict_list(text=input_text,class_list=class_list)
