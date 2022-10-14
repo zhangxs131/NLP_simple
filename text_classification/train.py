@@ -35,8 +35,10 @@ def train(config, model, train_dataloader, dev_dataloader, device):
         model.train()
         for i, input in enumerate(tqdm(train_dataloader)):
 
-            for k,v in input.items():
-                v=v.to(device)
+            input['input_ids']=input['input_ids'].to(device)
+            input['token_type_ids']=input['token_type_ids'].to(device)
+            input['attention_mask']=input['attention_mask'].to(device)
+            input['labels']=input['labels'].to(device)
 
             outputs = model(**input)
             loss=outputs.loss
@@ -74,8 +76,10 @@ def evaluate(config, model, data_loader,device='cpu'):
     with torch.no_grad():
         for input in tqdm(data_loader):
 
-            for k,v in input.items():
-                v=v.to(device)
+            input['input_ids']=input['input_ids'].to(device)
+            input['token_type_ids']=input['token_type_ids'].to(device)
+            input['attention_mask']=input['attention_mask'].to(device)
+            input['labels']=input['labels'].to(device)
             
             outputs = model(**input)
             loss=outputs.loss
