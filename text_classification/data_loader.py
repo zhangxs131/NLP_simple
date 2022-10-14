@@ -18,6 +18,10 @@ class SequenceClassificationDataset(Dataset):
 
     def _load_file(self,file_name):
 
+        if type(file_name)!=str:
+            if self.mode=='test':
+                return [{'text':i} for i in file_name]
+
         with open(file_name,'r',encoding='utf-8') as f:
             content=f.readlines()
         data=[]
@@ -33,7 +37,11 @@ class SequenceClassificationDataset(Dataset):
         else:
             for i in content:
                 t=i.strip('\n')
-                data.append({'text':t})   
+                r=t.split('\t')
+                if len(r)==1:
+                    data.append({'text':t})
+                else:
+                    data.append({'text':r[0]})
             
         return data
 
